@@ -2,3 +2,29 @@
 
 <input type="file" (change)="onFileSelected($event)" />
 <button (click)="uploadFile()">Subir Archivo</button>
+
+<!-- tu-componente.component.html -->
+<div *ngFor="let registro of registros">
+    <div>
+      <p>Materia: {{ registro.materia }}</p>
+      <p>Tipo Identificación: {{ registro.tipoIdentificacion }}</p>
+      <p>No Identificación: {{ registro.noIdentificacion }}</p>
+      <p>Nota ICFES: {{ registro.notaICFES }}</p>
+      <p>Nota Actual: {{ registro.notaActual }}</p>
+      <p>Período: {{ registro.periodo }}</p>
+      <p>Nota 3er Corte: {{ registro.nota3corte }}</p>
+      <p>Nota 6to Corte: {{ registro.nota6corte }}</p>
+      <p>Nota 9no Corte: {{ registro.nota9corte }}</p>
+      <p>Valor Agregado: {{ registro.valorAgregado }}</p>
+      <!-- Puedes agregar más propiedades según la estructura de tus datos -->
+    </div>
+    <hr /> <!-- Separador entre registros -->
+  </div>
+
+<!-- dashboard.component.html -->
+<div>
+    <!-- Otro contenido aquí -->
+    <canvas id="miGrafica" width="400" height="400"></canvas>
+  </div>
+  
+  
