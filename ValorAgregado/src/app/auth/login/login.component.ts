@@ -43,7 +43,7 @@ export class LoginComponent {
           console.info("Login completo");
         }
       });
-      this.router.navigateByUrl('/inicio');
+      this.router.navigateByUrl('/Dashboard');
       this.loginForm.reset();
     }
     else{
