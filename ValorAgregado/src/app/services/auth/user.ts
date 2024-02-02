@@ -4,4 +4,6 @@ export interface User {
     lastName?:string;
     email:string;
     message?:string;
+    id_user:string;
+    token:string;
 }
