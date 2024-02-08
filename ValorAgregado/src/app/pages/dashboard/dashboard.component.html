@@ -3,28 +3,83 @@
 <input type="file" (change)="onFileSelected($event)" />
 <button (click)="uploadFile()">Subir Archivo</button>
 
-<!-- tu-componente.component.html -->
-<div *ngFor="let registro of registros">
-    <div>
-      <p>Materia: {{ registro.materia }}</p>
-      <p>Tipo Identificación: {{ registro.tipoIdentificacion }}</p>
-      <p>No Identificación: {{ registro.noIdentificacion }}</p>
-      <p>Nota ICFES: {{ registro.notaICFES }}</p>
-      <p>Nota Actual: {{ registro.notaActual }}</p>
-      <p>Período: {{ registro.periodo }}</p>
-      <p>Nota 3er Corte: {{ registro.nota3corte }}</p>
-      <p>Nota 6to Corte: {{ registro.nota6corte }}</p>
-      <p>Nota 9no Corte: {{ registro.nota9corte }}</p>
-      <p>Valor Agregado: {{ registro.valorAgregado }}</p>
-      <!-- Puedes agregar más propiedades según la estructura de tus datos -->
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header">Filtros</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label  class="form-label" for="x">
+              Selecciona Periodo
+            </label>
+            <ng-select [(ngModel)]="periodoselected">
+              <ng-option *ngFor="let periodo of periodos" [value]="periodo">{{periodo}}</ng-option>
+              
+            </ng-select>  
+          </div>
+        </div>
+       
+        <button class="btn btn-success mt-3" (click)="filtrar()">Buscar Informacion</button>
+      </div>
     </div>
-    <hr /> <!-- Separador entre registros -->
   </div>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th>Materia</th>
+      <th>Tipo Identificación</th>
+      <th>No Identificación</th>
+      <th>Nota ICFES</th>
+      <th>Nota Actual</th>
+      <th>Período</th>
+      <th>Nota 3er Corte</th>
+      <th>Nota 6to Corte</th>
+      <th>Nota 9no Corte</th>
+      <th>Valor Agregado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let registro of registros">
+      <td>{{ registro.materia }}</td>
+      <td>{{ registro.tipoIdentificacion }}</td>
+      <td>{{ registro.noIdentificacion }}</td>
+      <td>{{ registro.notaICFES }}</td>
+      <td>{{ registro.notaActual }}</td>
+      <td>{{ registro.periodo }}</td>
+      <td>{{ registro.nota3corte }}</td>
+      <td>{{ registro.nota6corte }}</td>
+      <td>{{ registro.nota9corte }}</td>
+      <td>{{ registro.valorAgregado }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="container-fluid ">
+  <div class="row">
+    <div class="col-sm-6">
+      <canvas id="miGrafica" ></canvas>
+    </div>
+  </div>
+    <!-- Otro contenido aquí -->
+</div>
+<!-- tu-componente.component.html -->
+<!-- <div *ngFor="let registro of registros">
+  <div>
+    <p>Materia: {{ registro.materia }}</p>
+    <p>Tipo Identificación: {{ registro.tipoIdentificacion }}</p>
+    <p>No Identificación: {{ registro.noIdentificacion }}</p>
+    <p>Nota ICFES: {{ registro.notaICFES }}</p>
+    <p>Nota Actual: {{ registro.notaActual }}</p>
+    <p>Período: {{ registro.periodo }}</p>
+    <p>Nota 3er Corte: {{ registro.nota3corte }}</p>
+    <p>Nota 6to Corte: {{ registro.nota6corte }}</p>
+    <p>Nota 9no Corte: {{ registro.nota9corte }}</p>
+    <p>Valor Agregado: {{ registro.valorAgregado }}</p>
+   
+  </div>
+  <hr /> 
+</div> -->
 
 <!-- dashboard.component.html -->
-<div>
-    <!-- Otro contenido aquí -->
-    <canvas id="miGrafica" width="400" height="400"></canvas>
-  </div>
-  
-  

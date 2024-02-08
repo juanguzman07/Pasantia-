@@ -1,0 +1,7 @@
+<button (click)="mostrarLista()">Mostrar Lista</button>
+
+<ul *ngIf="mostrar">
+  <li><a [routerLink]="['/pagina-1']">Elemento 1</a></li>
+  <li><a [routerLink]="['/pagina-2']">Elemento 2</a></li>
+  <li><a [routerLink]="['/pagina-3']">Elemento 3</a></li>
+</ul>

@@ -16,12 +16,13 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedFile: File | null = null;
   registros: any[] = [];
   chart: any;
-
+  periodos: any[] = [];
+  periodoselected: any;
   constructor(
     private loginService: LoginService,
     private apiServicefile: CargueExcelService,
     private apiServiceNota: NotasService
-  ) {}
+  ) { }
 
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0];
@@ -54,6 +55,14 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.apiServiceNota.getRegistros().subscribe(
       (data) => {
         this.registros = data;
+        this.crearGrafica();
+        console.log(this.registros);
+        const periodosUnicos = new Set<string>();
+        data.forEach(data => {
+          periodosUnicos.add(data.periodo);
+        });
+        const periodosUnicosArray: string[] = [...periodosUnicos];
+        this.periodos = periodosUnicosArray;
       },
       (error) => {
         console.error('Error al obtener los registros:', error);
@@ -63,13 +72,28 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     // Crea el gráfico después de que se hayan inicializado los registros
-    this.crearGrafica();
-  }
 
+  }
+  filtrar(): void {
+    console.log("filtrando", this.periodoselected);
+    this.apiServiceNota.getRegistros().subscribe(
+      (data) => {
+        this.registros = data;
+        const periodosfiltrados = this.registros.filter(registro => registro.periodo === this.periodoselected);
+        this.registros = periodosfiltrados;
+        this.crearGrafica();
+        console.log(periodosfiltrados);
+      },
+      (error) => {
+        console.error('Error al obtener los registros:', error);
+      }
+    );
+
+  }
   private crearGrafica(): void {
     const nombresMaterias = this.registros.map(registro => registro.materia);
     const notas = this.registros.map(registro => registro.notaActual);
-  
+
     const ctx = document.getElementById('miGrafica') as HTMLCanvasElement;
     this.chart = new Chart(ctx, {
       type: 'bar',
@@ -79,13 +103,14 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
           {
             label: 'Notas Actuales',
             data: notas,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            backgroundColor: 'rgba(75, 192, 192, 1)',
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1
           }
         ]
       },
       options: {
+
         scales: {
           yAxes: [{
             ticks: {
